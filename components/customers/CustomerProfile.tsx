@@ -18,6 +18,7 @@ import {
 import LoyaltyCard from "./LoyaltyCard";
 import TierBadge from "./TierBadge";
 import type { Customer, Purchase } from "@/lib/customers-data";
+import { formatLKR } from "@/lib/currency";
 
 interface CustomerProfileProps {
   customer: Customer | null;
@@ -45,7 +46,7 @@ function ReceiptCard({ purchase }: { purchase: Purchase }) {
           </code>
           <span className="text-xs" style={{ color: "var(--text-secondary)" }}>
             <Calendar size={11} className="inline mr-1" />
-            {new Date(purchase.date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+            {new Date(purchase.date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -67,7 +68,7 @@ function ReceiptCard({ purchase }: { purchase: Purchase }) {
               )}
             </span>
             <span className="font-medium" style={{ color: "var(--text)" }}>
-              ₹{(item.price * item.qty).toLocaleString("en-IN")}
+              {formatLKR(item.price * item.qty)}
             </span>
           </div>
         ))}
@@ -82,7 +83,7 @@ function ReceiptCard({ purchase }: { purchase: Purchase }) {
         <div>
           <span className="text-xs" style={{ color: "var(--text-secondary)" }}>Total: </span>
           <span className="text-sm font-bold" style={{ color: "var(--text)" }}>
-            ₹{purchase.total.toLocaleString("en-IN")}
+            {formatLKR(purchase.total)}
           </span>
         </div>
       </div>
@@ -128,7 +129,7 @@ export default function CustomerProfile({ customer, isOpen, onClose }: CustomerP
                     <TierBadge tier={customer.tier} size="sm" />
                   </div>
                   <p className="text-xs mt-0.5" style={{ color: "var(--text-secondary)" }}>
-                    Member since {new Date(customer.joinDate).toLocaleDateString("en-IN", { month: "short", year: "numeric" })} · #{customer.id}
+                    Member since {new Date(customer.joinDate).toLocaleDateString("en-GB", { month: "short", year: "numeric" })} · #{customer.id}
                   </p>
                 </div>
               </div>
@@ -161,7 +162,7 @@ export default function CustomerProfile({ customer, isOpen, onClose }: CustomerP
                   customer.address && { icon: <MapPin size={13} />, value: customer.address },
                   customer.dob && {
                     icon: <Cake size={13} />,
-                    value: new Date(customer.dob).toLocaleDateString("en-IN", { day: "numeric", month: "long" }),
+                    value: new Date(customer.dob).toLocaleDateString("en-GB", { day: "numeric", month: "long" }),
                   },
                 ]
                   .filter(Boolean)
@@ -212,3 +213,4 @@ export default function CustomerProfile({ customer, isOpen, onClose }: CustomerP
     </AnimatePresence>
   );
 }
+

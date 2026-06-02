@@ -61,7 +61,7 @@ function StarRating({ rating }: { rating: number }) {
 function SupplierCard({ supplier }: { supplier: Supplier }) {
   const [expanded, setExpanded] = useState(false);
   const statusCfg = STATUS_CONFIG[supplier.status];
-  const margin = `₹${(supplier.totalSpend / 100000).toFixed(1)}L`;
+  const margin = `LKR ${(supplier.totalSpend / 1000).toFixed(0)}K`;
 
   return (
     <motion.div
@@ -222,7 +222,7 @@ function SupplierCard({ supplier }: { supplier: Supplier }) {
                       </div>
                       <div className="flex items-center gap-3">
                         <p className="text-sm font-semibold" style={{ color: "var(--text)" }}>
-                          ₹{order.amount.toLocaleString("en-IN")}
+                          LKR {order.amount.toLocaleString("en-US")}
                         </p>
                         <span
                           className="flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-full"
@@ -262,7 +262,7 @@ export default function SuppliersPanel() {
           { label: "On Hold", value: onHoldCount, color: "#ea580c" },
           {
             label: "Lifetime Spend",
-            value: `₹${(totalSpend / 100000).toFixed(1)}L`,
+            value: `LKR ${(totalSpend / 1000).toFixed(0)}K`,
             color: "var(--brand-dark)",
           },
         ].map((s) => (
@@ -302,3 +302,4 @@ export default function SuppliersPanel() {
     </div>
   );
 }
+

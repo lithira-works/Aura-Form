@@ -1,14 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CreditCard, Banknote, QrCode, User, Clock } from "lucide-react";
+import { CreditCard, Banknote, QrCode, Clock } from "lucide-react";
 import { RECENT_TRANSACTIONS } from "@/lib/analytics-data";
 import type { Transaction } from "@/lib/analytics-data";
+import { formatLKR } from "@/lib/currency";
 
 const METHOD_CFG: Record<Transaction["method"], { icon: React.ReactNode; label: string; bg: string; color: string }> = {
-  card: { icon: <CreditCard size={11} />, label: "Card",  bg: "#eff6ff", color: "#2563eb" },
-  cash: { icon: <Banknote  size={11} />, label: "Cash",  bg: "#f0fdf4", color: "#16a34a" },
-  upi:  { icon: <QrCode   size={11} />, label: "UPI",   bg: "#fdf4ff", color: "#a855f7" },
+  card: { icon: <CreditCard size={11} />, label: "Card",    bg: "#eff6ff", color: "#2563eb" },
+  cash: { icon: <Banknote  size={11} />, label: "Cash",    bg: "#f0fdf4", color: "#16a34a" },
+  upi:  { icon: <QrCode   size={11} />, label: "QR Pay",  bg: "#fdf4ff", color: "#a855f7" },
 };
 
 export default function RecentTransactions() {
@@ -26,7 +27,7 @@ export default function RecentTransactions() {
           <h3 className="font-bold text-base" style={{ color: "var(--text)" }}>Recent Transactions</h3>
         </div>
         <span className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>
-          Today · ₹{totalToday.toLocaleString("en-IN")}
+          Today · {formatLKR(totalToday)}
         </span>
       </div>
 
@@ -45,7 +46,7 @@ export default function RecentTransactions() {
             >
               {/* Method icon */}
               <div
-                className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
                 style={{ background: m.bg, color: m.color }}
               >
                 {m.icon}
@@ -69,14 +70,14 @@ export default function RecentTransactions() {
               </div>
 
               {/* Time */}
-              <p className="text-xs flex-shrink-0" style={{ color: "var(--text-secondary)" }}>
+              <p className="text-xs shrink-0" style={{ color: "var(--text-secondary)" }}>
                 {txn.time}
               </p>
 
               {/* Amount */}
-              <div className="text-right flex-shrink-0">
+              <div className="text-right shrink-0">
                 <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
-                  ₹{txn.total.toLocaleString("en-IN")}
+                  {formatLKR(txn.total)}
                 </p>
                 <span
                   className="inline-flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded-full"

@@ -370,4 +370,5 @@ export const CASHIERS: Cashier[] = [
 
 export const ACTIVE_CASHIER = CASHIERS[0];
 
-export const TAX_RATE = 0.18;
+/** Sri Lanka VAT rate */
+export const TAX_RATE = 0.15;

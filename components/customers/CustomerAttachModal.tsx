@@ -106,7 +106,7 @@ export default function CustomerAttachModal({
                   <p className="text-sm font-semibold" style={{ color: "var(--brand-dark)" }}>
                     Attach a customer to award{" "}
                     <span className="font-black">{earnPoints} points</span>{" "}
-                    on this ₹{cartTotal.toLocaleString("en-IN")} sale
+                    on this LKR {cartTotal.toLocaleString("en-US")} sale
                   </p>
                 </div>
               )}
@@ -174,9 +174,9 @@ export default function CustomerAttachModal({
 
                       <div className="grid grid-cols-3 gap-3 text-center">
                         {[
-                          { label: "Current Points", value: confirming.points.toLocaleString("en-IN") },
+                          { label: "Current Points", value: confirming.points.toLocaleString("en-US") },
                           { label: "Points to Earn", value: `+${earnPoints}` },
-                          { label: "After This Sale", value: (confirming.points + earnPoints).toLocaleString("en-IN") },
+                          { label: "After This Sale", value: (confirming.points + earnPoints).toLocaleString("en-US") },
                         ].map((s) => (
                           <div key={s.label} className="px-3 py-2 rounded-xl" style={{ background: "white" }}>
                             <p className="text-lg font-black" style={{ color: s.label === "Points to Earn" ? "#16a34a" : cfg?.color }}>{s.value}</p>
@@ -230,7 +230,7 @@ export default function CustomerAttachModal({
                             <TierBadge tier={customer.tier} size="sm" />
                           </div>
                           <p className="text-xs truncate" style={{ color: "var(--text-secondary)" }}>
-                            {customer.phone} · {customer.points.toLocaleString("en-IN")} pts
+                            {customer.phone} · {customer.points.toLocaleString("en-US")} pts
                           </p>
                         </div>
                         <ChevronRight size={14} style={{ color: "var(--text-secondary)", flexShrink: 0 }} />
@@ -252,3 +252,4 @@ export default function CustomerAttachModal({
     </AnimatePresence>
   );
 }
+

@@ -16,6 +16,7 @@ import CustomerProfile from "@/components/customers/CustomerProfile";
 import TierBadge from "@/components/customers/TierBadge";
 import { CUSTOMERS, TIER_CONFIG } from "@/lib/customers-data";
 import type { Customer, LoyaltyTier } from "@/lib/customers-data";
+import { formatLKRCompact } from "@/lib/currency";
 
 const TIER_FILTERS: (LoyaltyTier | "All")[] = ["All", "Diamond", "Platinum", "Gold", "Rose"];
 
@@ -58,7 +59,7 @@ export default function CustomersPage() {
         <div>
           <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>Customer Hub</h1>
           <p className="text-sm mt-0.5" style={{ color: "var(--text-secondary)" }}>
-            {CUSTOMERS.length} members · ₹{(totalLTV / 100000).toFixed(1)}L lifetime value
+            {CUSTOMERS.length} members · LKR {(totalLTV / 1000).toFixed(0)}K lifetime value
           </p>
         </div>
         <motion.button
@@ -79,8 +80,8 @@ export default function CustomersPage() {
       <div className="flex gap-4 px-6 py-4 flex-shrink-0 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
         {[
           { label: "Total Members", value: CUSTOMERS.length, icon: <Users size={16} />, color: "#6366f1", bg: "#eef2ff" },
-          { label: "Total LTV", value: `₹${(totalLTV / 100000).toFixed(1)}L`, icon: <TrendingUp size={16} />, color: "#16a34a", bg: "#f0fdf4" },
-          { label: "Avg. Points", value: avgPoints.toLocaleString("en-IN"), icon: <Star size={16} />, color: "var(--brand-dark)", bg: "var(--brand-light)" },
+          { label: "Total LTV", value: formatLKRCompact(totalLTV), icon: <TrendingUp size={16} />, color: "#16a34a", bg: "#f0fdf4" },
+          { label: "Avg. Points", value: avgPoints.toLocaleString("en-US"), icon: <Star size={16} />, color: "var(--brand-dark)", bg: "var(--brand-light)" },
           ...TIER_FILTERS.filter((t) => t !== "All").map((tier) => {
             const cnt = CUSTOMERS.filter((c) => c.tier === tier).length;
             const cfg = TIER_CONFIG[tier as LoyaltyTier];
@@ -206,10 +207,10 @@ export default function CustomersPage() {
                   </p>
                   <div className="flex items-center gap-3 mt-1.5">
                     <span className="text-xs font-semibold" style={{ color: cfg.color }}>
-                      {customer.points.toLocaleString("en-IN")} pts
+                      {customer.points.toLocaleString("en-US")} pts
                     </span>
                     <span className="text-xs" style={{ color: "var(--text-secondary)" }}>
-                      LTV: ₹{customer.totalSpent.toLocaleString("en-IN")}
+                      LTV: {formatLKRCompact(customer.totalSpent)}
                     </span>
                   </div>
                 </div>
@@ -238,3 +239,4 @@ export default function CustomersPage() {
     </div>
   );
 }
+

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Package, AlertTriangle, TrendingUp, Truck } from "lucide-react";
+import { formatLKRCompact } from "@/lib/currency";
 import type { InventoryProduct } from "@/lib/inventory-data";
 
 interface StatsBarProps {
@@ -51,7 +52,7 @@ export default function StatsBar({ products }: StatsBarProps) {
     },
     {
       label: "Inventory Value",
-      value: `₹${(inventoryValue / 100000).toFixed(1)}L`,
+      value: formatLKRCompact(inventoryValue),
       icon: TrendingUp,
       color: "#16a34a",
       bg: "#f0fdf4",

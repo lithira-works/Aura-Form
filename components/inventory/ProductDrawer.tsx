@@ -315,10 +315,10 @@ export default function ProductDrawer({
                     className="flex flex-col gap-4"
                   >
                     <div className="grid grid-cols-2 gap-3">
-                      <FormField label="Selling Price (₹)" required>
+                      <FormField label="Selling Price (LKR)" required>
                         <input type="number" className={inputCls} style={inputStyle} value={form.price} onChange={set("price")} placeholder="0" />
                       </FormField>
-                      <FormField label="Cost Price (₹)" required>
+                      <FormField label="Cost Price (LKR)" required>
                         <input type="number" className={inputCls} style={inputStyle} value={form.costPrice} onChange={set("costPrice")} placeholder="0" />
                       </FormField>
                     </div>
@@ -332,7 +332,7 @@ export default function ProductDrawer({
                         <span style={{ color: "#15803d" }}>Gross Margin</span>
                         <span className="font-bold" style={{ color: "#15803d" }}>
                           {Math.round(((parseFloat(form.price) - parseFloat(form.costPrice)) / parseFloat(form.price)) * 100)}%
-                          {" "}(₹{(parseFloat(form.price) - parseFloat(form.costPrice)).toLocaleString("en-IN")})
+                          {" "}(LKR {(parseFloat(form.price) - parseFloat(form.costPrice)).toLocaleString("en-US")})
                         </span>
                       </motion.div>
                     )}
@@ -551,3 +551,4 @@ export default function ProductDrawer({
     </AnimatePresence>
   );
 }
+

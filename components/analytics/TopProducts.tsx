@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { TrendingUp, TrendingDown, Trophy } from "lucide-react";
 import { TOP_PRODUCTS } from "@/lib/analytics-data";
+import { formatLKRCompact } from "@/lib/currency";
 
 const RANK_STYLE = [
   { bg: "#fef9c3", color: "#ca8a04", label: "🥇" },
@@ -119,7 +120,7 @@ export default function TopProducts() {
               {/* Revenue + trend */}
               <div className="text-right flex-shrink-0 w-24">
                 <p className="text-sm font-bold leading-none" style={{ color: "var(--text)" }}>
-                  ₹{(product.revenue / 1000).toFixed(0)}k
+                  {formatLKRCompact(product.revenue)}
                 </p>
                 <div
                   className="flex items-center justify-end gap-0.5 mt-0.5 text-[11px] font-semibold"

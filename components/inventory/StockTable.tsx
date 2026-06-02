@@ -253,14 +253,14 @@ export default function StockTable({
                     {/* Unit price */}
                     <td className="px-4 py-3">
                       <p className="text-sm font-semibold" style={{ color: "var(--text)" }}>
-                        ₹{product.price.toLocaleString("en-IN")}
+                        LKR {product.price.toLocaleString("en-US")}
                       </p>
                     </td>
 
                     {/* Cost price */}
                     <td className="px-4 py-3">
                       <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                        ₹{product.costPrice.toLocaleString("en-IN")}
+                        LKR {product.costPrice.toLocaleString("en-US")}
                       </p>
                       <p className="text-[10px] mt-0.5" style={{ color: "#16a34a" }}>
                         {Math.round(((product.price - product.costPrice) / product.price) * 100)}% margin
@@ -393,3 +393,4 @@ export default function StockTable({
     </div>
   );
 }
+

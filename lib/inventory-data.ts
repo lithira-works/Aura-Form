@@ -203,7 +203,7 @@ export type SortDir = "asc" | "desc";
 export function exportToCSV(products: InventoryProduct[]) {
   const headers = [
     "SKU", "Name", "Brand", "Category", "Barcode", "Stock",
-    "Low Stock Threshold", "Unit Price (₹)", "Cost Price (₹)",
+    "Low Stock Threshold", "Unit Price (LKR)", "Cost Price (LKR)",
     "Supplier", "Location", "Status", "Last Restocked", "Expiry Date",
   ];
   const rows = products.map((p) => [

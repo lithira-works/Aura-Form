@@ -10,6 +10,7 @@ import {
   UserPlus,
 } from "lucide-react";
 import type { KPIData } from "@/lib/analytics-data";
+import { formatLKR } from "@/lib/currency";
 
 interface KPICardsProps {
   data: KPIData;
@@ -31,7 +32,7 @@ export default function KPICards({ data }: KPICardsProps) {
   const cards: Card[] = [
     {
       label: "Today's Revenue",
-      value: `₹${data.todayRevenue.toLocaleString("en-IN")}`,
+      value: formatLKR(data.todayRevenue),
       change: data.revenueChange,
       icon: <TrendingUp size={20} />,
       iconBg: "var(--brand-light)",
@@ -49,7 +50,7 @@ export default function KPICards({ data }: KPICardsProps) {
     },
     {
       label: "Avg. Order Value",
-      value: `₹${data.avgOrderValue.toLocaleString("en-IN")}`,
+      value: formatLKR(data.avgOrderValue),
       change: data.aovChange,
       icon: <Calculator size={20} />,
       iconBg: "#fdf4ff",

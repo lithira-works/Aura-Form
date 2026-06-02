@@ -16,6 +16,7 @@ import {
 } from "recharts";
 import { BarChart2, TrendingUp, Calendar } from "lucide-react";
 import type { DayRevenue, MonthRevenue } from "@/lib/analytics-data";
+import { formatLKRCompact, formatAxisLKR } from "@/lib/currency";
 
 type ViewMode = "daily" | "monthly";
 type ChartType = "bar" | "area";
@@ -24,13 +25,6 @@ interface RevenueChartProps {
   dailyData: DayRevenue[];
   monthlyData: MonthRevenue[];
 }
-
-const formatINR = (v: number) =>
-  v >= 100000
-    ? `₹${(v / 100000).toFixed(1)}L`
-    : v >= 1000
-    ? `₹${(v / 1000).toFixed(0)}k`
-    : `₹${v}`;
 
 function CustomTooltip({ active, payload, label }: {
   active?: boolean;
@@ -60,7 +54,7 @@ function CustomTooltip({ active, payload, label }: {
           <span className="font-bold" style={{ color: "var(--text)" }}>
             {entry.name === "Transactions"
               ? entry.value
-              : formatINR(entry.value)}
+              : formatLKRCompact(entry.value)}
           </span>
         </div>
       ))}
@@ -120,12 +114,12 @@ export default function RevenueChart({ dailyData, monthlyData }: RevenueChartPro
             <div className="flex items-center gap-1.5 text-xs">
               <span className="w-3 h-3 rounded-sm" style={{ background: "#F2A7B9" }} />
               <span style={{ color: "var(--text-secondary)" }}>Revenue: </span>
-              <span className="font-bold" style={{ color: "var(--text)" }}>{formatINR(totalRevenue)}</span>
+              <span className="font-bold" style={{ color: "var(--text)" }}>{formatLKRCompact(totalRevenue)}</span>
             </div>
             <div className="flex items-center gap-1.5 text-xs">
               <span className="w-3 h-3 rounded-sm" style={{ background: "#c084fc" }} />
               <span style={{ color: "var(--text-secondary)" }}>Profit: </span>
-              <span className="font-bold" style={{ color: "var(--text)" }}>{formatINR(totalProfit)}</span>
+              <span className="font-bold" style={{ color: "var(--text)" }}>{formatLKRCompact(totalProfit)}</span>
             </div>
             <div className="flex items-center gap-1.5 text-xs">
               <TrendingUp size={12} style={{ color: "#16a34a" }} />
@@ -195,11 +189,11 @@ export default function RevenueChart({ dailyData, monthlyData }: RevenueChartPro
                 tickLine={false}
               />
               <YAxis
-                tickFormatter={formatINR}
+                tickFormatter={formatAxisLKR}
                 tick={{ fontSize: 11, fill: "var(--text-secondary)" }}
                 axisLine={false}
                 tickLine={false}
-                width={56}
+                width={52}
               />
               <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(242,167,185,0.06)", radius: 8 }} />
               <Bar dataKey="Revenue" fill="#F2A7B9" shape={<CustomBar />} maxBarSize={32} />
@@ -219,7 +213,7 @@ export default function RevenueChart({ dailyData, monthlyData }: RevenueChartPro
               </defs>
               <CartesianGrid vertical={false} stroke="var(--border)" strokeDasharray="4 4" />
               <XAxis dataKey="name" tick={{ fontSize: 11, fill: "var(--text-secondary)" }} axisLine={false} tickLine={false} />
-              <YAxis tickFormatter={formatINR} tick={{ fontSize: 11, fill: "var(--text-secondary)" }} axisLine={false} tickLine={false} width={56} />
+              <YAxis tickFormatter={formatAxisLKR} tick={{ fontSize: 11, fill: "var(--text-secondary)" }} axisLine={false} tickLine={false} width={52} />
               <Tooltip content={<CustomTooltip />} />
               <Area type="monotone" dataKey="Revenue" stroke="#F2A7B9" strokeWidth={2.5} fill="url(#gradRevenue)" dot={false} activeDot={{ r: 5, fill: "#F2A7B9" }} />
               <Area type="monotone" dataKey="Profit"  stroke="#c084fc" strokeWidth={2}   fill="url(#gradProfit)"   dot={false} activeDot={{ r: 5, fill: "#c084fc" }} />

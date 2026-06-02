@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { TAX_RATE } from "@/lib/mock-data";
 import type { Product } from "@/lib/mock-data";
+import { formatLKR } from "@/lib/currency";
 
 export interface CartItem {
   product: Product;
@@ -36,7 +37,7 @@ interface CartSidebarProps {
 const PAYMENT_METHODS: { id: PaymentMethod; label: string; icon: React.ReactNode }[] = [
   { id: "cash", label: "Cash", icon: <Banknote size={16} /> },
   { id: "card", label: "Card", icon: <CreditCard size={16} /> },
-  { id: "qr", label: "UPI / QR", icon: <QrCode size={16} /> },
+  { id: "qr", label: "QR Pay", icon: <QrCode size={16} /> },
 ];
 
 export default function CartSidebar({
@@ -81,7 +82,7 @@ export default function CartSidebar({
     >
       {/* Header */}
       <div
-        className="flex items-center justify-between px-5 py-4 border-b flex-shrink-0"
+        className="flex items-center justify-between px-5 py-4 border-b shrink-0"
         style={{ borderColor: "var(--border)" }}
       >
         <div className="flex items-center gap-2">
@@ -153,7 +154,7 @@ export default function CartSidebar({
               >
                 {/* Emoji */}
                 <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0"
                   style={{ background: "var(--brand-light)" }}
                 >
                   {item.product.emoji}
@@ -168,13 +169,13 @@ export default function CartSidebar({
                     {item.product.name}
                   </p>
                   <p className="text-xs mt-0.5" style={{ color: "var(--text-secondary)" }}>
-                    ₹{item.product.price.toLocaleString("en-IN")}
+                    {formatLKR(item.product.price)}
                     {item.product.shade && ` · ${item.product.shade}`}
                   </p>
                 </div>
 
                 {/* Qty controls */}
-                <div className="flex items-center gap-1.5 flex-shrink-0">
+                <div className="flex items-center gap-1.5 shrink-0">
                   <motion.button
                     onClick={() => onUpdateQty(item.product.id, item.qty - 1)}
                     className="w-6 h-6 rounded-lg flex items-center justify-center"
@@ -201,9 +202,9 @@ export default function CartSidebar({
                 </div>
 
                 {/* Line total */}
-                <div className="text-right flex-shrink-0 min-w-[52px]">
+                <div className="text-right shrink-0 min-w-[52px]">
                   <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
-                    ₹{(item.product.price * item.qty).toLocaleString("en-IN")}
+                    {formatLKR(item.product.price * item.qty)}
                   </p>
                   <motion.button
                     onClick={() => onRemove(item.product.id)}
@@ -221,7 +222,7 @@ export default function CartSidebar({
 
       {/* Bottom panel */}
       <div
-        className="flex-shrink-0 border-t p-4 space-y-3"
+        className="shrink-0 border-t p-4 space-y-3"
         style={{ borderColor: "var(--border)" }}
       >
         {/* Discount input */}
@@ -247,7 +248,7 @@ export default function CartSidebar({
         <div className="space-y-1.5 px-1">
           <div className="flex justify-between text-sm" style={{ color: "var(--text-secondary)" }}>
             <span>Subtotal</span>
-            <span>₹{subtotal.toLocaleString("en-IN")}</span>
+            <span>{formatLKR(subtotal)}</span>
           </div>
           {discountAmount > 0 && (
             <motion.div
@@ -257,12 +258,12 @@ export default function CartSidebar({
               style={{ color: "#16a34a" }}
             >
               <span>Discount ({discount}%)</span>
-              <span>−₹{discountAmount.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</span>
+              <span>−{formatLKR(discountAmount)}</span>
             </motion.div>
           )}
           <div className="flex justify-between text-sm" style={{ color: "var(--text-secondary)" }}>
-            <span>GST ({(TAX_RATE * 100).toFixed(0)}%)</span>
-            <span>₹{tax.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</span>
+            <span>VAT ({(TAX_RATE * 100).toFixed(0)}%)</span>
+            <span>{formatLKR(tax)}</span>
           </div>
           <div
             className="flex justify-between font-bold text-base pt-2 border-t"
@@ -270,7 +271,7 @@ export default function CartSidebar({
           >
             <span>Total</span>
             <motion.span key={total}>
-              ₹{total.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
+              {formatLKR(total)}
             </motion.span>
           </div>
         </div>
@@ -333,7 +334,7 @@ export default function CartSidebar({
                 className="flex items-center gap-2"
               >
                 <ReceiptText size={16} />
-                Charge ₹{total.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
+                Charge {formatLKR(total)}
                 <ChevronRight size={16} />
               </motion.span>
             )}

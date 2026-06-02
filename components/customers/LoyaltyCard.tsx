@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Gift, TrendingUp, Star } from "lucide-react";
+import { formatLKRCompact } from "@/lib/currency";
 import TierBadge from "./TierBadge";
 import {
   TIER_CONFIG,
@@ -57,7 +58,7 @@ export default function LoyaltyCard({ customer }: LoyaltyCardProps) {
               className="text-3xl font-black"
               style={{ color: cfg.color }}
             >
-              {customer.points.toLocaleString("en-IN")}
+              {customer.points.toLocaleString("en-US")}
             </motion.p>
             <p className="text-xs" style={{ color: "var(--text-secondary)" }}>pts</p>
           </div>
@@ -71,7 +72,7 @@ export default function LoyaltyCard({ customer }: LoyaltyCardProps) {
                 Progress to {nextTier} Tier {nextCfg.emoji}
               </span>
               <span className="text-xs font-semibold" style={{ color: nextCfg.color }}>
-                {toNext.toLocaleString("en-IN")} pts to go
+                {toNext.toLocaleString("en-US")} pts to go
               </span>
             </div>
             <div className="relative h-3 rounded-full overflow-hidden" style={{ background: "rgba(0,0,0,0.06)" }}>
@@ -132,9 +133,9 @@ export default function LoyaltyCard({ customer }: LoyaltyCardProps) {
         style={{ borderTop: `1px solid ${cfg.border}` }}
       >
         {[
-          { label: "Total Spent", value: `₹${(customer.totalSpent / 1000).toFixed(1)}k` },
+          { label: "Total Spent", value: formatLKRCompact(customer.totalSpent) },
           { label: "Purchases", value: customer.purchaseCount },
-          { label: "Last Visit", value: new Date(customer.lastVisit).toLocaleDateString("en-IN", { day: "numeric", month: "short" }) },
+          { label: "Last Visit", value: new Date(customer.lastVisit).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) },
         ].map((s) => (
           <div key={s.label} className="flex flex-col items-center py-3 gap-0.5">
             <p className="text-lg font-bold" style={{ color: "var(--text)" }}>{s.value}</p>

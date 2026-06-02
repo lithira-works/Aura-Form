@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, AlertTriangle, Package } from "lucide-react";
 import type { Product } from "@/lib/mock-data";
+import { formatLKR } from "@/lib/currency";
 
 interface ProductGridProps {
   products: Product[];
@@ -138,8 +139,8 @@ function ProductCard({
         </p>
 
         <div className="flex items-center justify-between mt-auto pt-1">
-          <p className="text-base font-bold" style={{ color: "var(--text)" }}>
-            ₹{product.price.toLocaleString("en-IN")}
+          <p className="text-[13px] font-bold leading-none" style={{ color: "var(--text)" }}>
+            {formatLKR(product.price)}
           </p>
           <StockBadge stock={product.stock} threshold={product.lowStockThreshold} />
         </div>
