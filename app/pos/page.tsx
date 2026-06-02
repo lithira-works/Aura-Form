@@ -138,7 +138,7 @@ export default function POSPage() {
       {/* Main content */}
       <div className="flex flex-1 overflow-hidden">
         {/* Product panel */}
-        <main className="flex flex-col flex-1 overflow-hidden">
+        <main className="flex flex-col flex-1 min-w-0 overflow-hidden">
           {/* Category tabs */}
           <CategoryFilter
             active={activeCategory}

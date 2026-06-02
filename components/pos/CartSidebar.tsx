@@ -72,12 +72,10 @@ export default function CartSidebar({
 
   return (
     <aside
-      className="flex flex-col h-full border-l"
+      className="flex flex-col h-full border-l shrink-0 w-[280px] min-w-[260px] max-w-[34vw] xl:w-[320px] 2xl:w-[340px]"
       style={{
         background: "#ffffff",
         borderColor: "var(--border)",
-        width: "340px",
-        minWidth: "340px",
       }}
     >
       {/* Header */}

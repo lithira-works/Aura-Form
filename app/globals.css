@@ -14,6 +14,7 @@
   --text: #18181b;
   --text-secondary: #52525b;
   --text-muted: #a1a1aa;
+  --text-shade: #71717a;
 
   /* Borders — more visible on white surfaces */
   --border: rgba(0, 0, 0, 0.09);
