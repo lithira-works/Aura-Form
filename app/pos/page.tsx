@@ -6,8 +6,11 @@ import CategoryFilter from "@/components/pos/CategoryFilter";
 import ProductGrid from "@/components/pos/ProductGrid";
 import CartSidebar, { type CartItem } from "@/components/pos/CartSidebar";
 import BarcodeScannerModal from "@/components/pos/BarcodeScannerModal";
+import CustomerAttachModal from "@/components/customers/CustomerAttachModal";
 import { useBarcode } from "@/hooks/useBarcode";
 import { PRODUCTS, CATEGORIES, type Category } from "@/lib/mock-data";
+import { TAX_RATE } from "@/lib/mock-data";
+import type { Customer } from "@/lib/customers-data";
 
 export default function POSPage() {
   const [activeCategory, setActiveCategory] = useState<Category>("All");
@@ -15,6 +18,8 @@ export default function POSPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [lastAddedId, setLastAddedId] = useState<string | null>(null);
   const [scannerOpen, setScannerOpen] = useState(false);
+  const [customerModalOpen, setCustomerModalOpen] = useState(false);
+  const [attachedCustomer, setAttachedCustomer] = useState<Customer | null>(null);
 
   /* ── Filtered products ── */
   const filteredProducts = useMemo(() => {
@@ -112,6 +117,8 @@ export default function POSPage() {
   );
 
   const cartCount = cartItems.reduce((s, i) => s + i.qty, 0);
+  const cartSubtotal = cartItems.reduce((s, i) => s + i.product.price * i.qty, 0);
+  const cartTotal = Math.round(cartSubtotal * (1 + TAX_RATE));
 
   return (
     <div
@@ -123,6 +130,8 @@ export default function POSPage() {
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         onScannerToggle={() => setScannerOpen(true)}
+        onCustomerToggle={() => setCustomerModalOpen(true)}
+        attachedCustomer={attachedCustomer}
         cartCount={cartCount}
       />
 
@@ -165,6 +174,15 @@ export default function POSPage() {
         isOpen={scannerOpen}
         onClose={() => setScannerOpen(false)}
         onProductFound={handleModalProductFound}
+      />
+
+      {/* Customer attach modal */}
+      <CustomerAttachModal
+        isOpen={customerModalOpen}
+        onClose={() => setCustomerModalOpen(false)}
+        cartTotal={cartTotal}
+        onAttach={(customer) => setAttachedCustomer(customer)}
+        attachedCustomer={attachedCustomer}
       />
     </div>
   );

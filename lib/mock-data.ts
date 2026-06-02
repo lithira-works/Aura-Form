@@ -79,7 +79,7 @@ export const PRODUCTS: Product[] = [
     stock: 3,
     lowStockThreshold: 5,
     emoji: "🌷",
-    expiryDate: "2026-12-01",
+    expiryDate: "2026-07-24",
   },
   {
     id: "p004",
@@ -118,7 +118,7 @@ export const PRODUCTS: Product[] = [
     stock: 22,
     lowStockThreshold: 6,
     emoji: "👁️",
-    expiryDate: "2026-09-30",
+    expiryDate: "2026-06-14",
   },
   {
     id: "p007",
@@ -144,7 +144,7 @@ export const PRODUCTS: Product[] = [
     lowStockThreshold: 8,
     emoji: "🖊️",
     shade: "Intense Black",
-    expiryDate: "2026-11-15",
+    expiryDate: "2026-07-08",
   },
   {
     id: "p009",
@@ -198,7 +198,7 @@ export const PRODUCTS: Product[] = [
     lowStockThreshold: 5,
     emoji: "🩷",
     shade: "Underdawg",
-    expiryDate: "2026-10-01",
+    expiryDate: "2026-06-22",
   },
   {
     id: "p013",
@@ -249,7 +249,7 @@ export const PRODUCTS: Product[] = [
     stock: 19,
     lowStockThreshold: 6,
     emoji: "🛡️",
-    expiryDate: "2027-03-01",
+    expiryDate: "2026-08-22",
   },
   {
     id: "p017",
@@ -261,7 +261,7 @@ export const PRODUCTS: Product[] = [
     stock: 1,
     lowStockThreshold: 3,
     emoji: "🌙",
-    expiryDate: "2027-01-15",
+    expiryDate: "2026-08-05",
   },
 
   // Fragrance

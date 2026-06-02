@@ -10,13 +10,18 @@ import {
   ChevronDown,
   Sparkles,
   Search,
+  UserCircle,
 } from "lucide-react";
 import { ACTIVE_CASHIER } from "@/lib/mock-data";
+import TierBadge from "@/components/customers/TierBadge";
+import type { Customer } from "@/lib/customers-data";
 
 interface POSHeaderProps {
   searchQuery: string;
   onSearchChange: (value: string) => void;
   onScannerToggle: () => void;
+  onCustomerToggle: () => void;
+  attachedCustomer: Customer | null;
   cartCount: number;
 }
 
@@ -30,6 +35,8 @@ export default function POSHeader({
   searchQuery,
   onSearchChange,
   onScannerToggle,
+  onCustomerToggle,
+  attachedCustomer,
   cartCount,
 }: POSHeaderProps) {
   const [time, setTime] = useState(new Date());
@@ -119,6 +126,29 @@ export default function POSHeader({
 
       {/* Spacer */}
       <div className="flex-1" />
+
+      {/* Customer attach button */}
+      <motion.button
+        onClick={onCustomerToggle}
+        className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors"
+        style={{
+          background: attachedCustomer ? "#f0fdf4" : "var(--bg)",
+          color: attachedCustomer ? "#16a34a" : "var(--text-secondary)",
+          border: attachedCustomer ? "1.5px solid #bbf7d0" : "1px solid var(--border)",
+        }}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.97 }}
+      >
+        <UserCircle size={16} />
+        {attachedCustomer ? (
+          <span className="flex items-center gap-1.5">
+            {attachedCustomer.name.split(" ")[0]}
+            <TierBadge tier={attachedCustomer.tier} size="sm" />
+          </span>
+        ) : (
+          <span>Customer</span>
+        )}
+      </motion.button>
 
       {/* Barcode Scanner Button */}
       <motion.button
