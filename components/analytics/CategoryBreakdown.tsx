@@ -2,13 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import { PieChart as PieIcon } from "lucide-react";
 import { CATEGORY_BREAKDOWN } from "@/lib/analytics-data";
 
@@ -58,33 +52,31 @@ export default function CategoryBreakdown() {
       {/* Donut + legend */}
       <div className="flex items-center gap-4">
         {/* Donut chart */}
-        <div style={{ width: 160, height: 160, flexShrink: 0 }}>
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={CATEGORY_BREAKDOWN}
-                cx="50%"
-                cy="50%"
-                innerRadius={46}
-                outerRadius={70}
-                paddingAngle={3}
-                dataKey="value"
-                onMouseEnter={(_, index) => setActiveIndex(index)}
-                onMouseLeave={() => setActiveIndex(null)}
-                strokeWidth={0}
-              >
-                {CATEGORY_BREAKDOWN.map((entry, index) => (
-                  <Cell
-                    key={entry.name}
-                    fill={entry.color}
-                    opacity={activeIndex === null || activeIndex === index ? 1 : 0.35}
-                    style={{ cursor: "pointer", transition: "opacity 0.2s" }}
-                  />
-                ))}
-              </Pie>
-              <Tooltip content={<CustomTooltip />} />
-            </PieChart>
-          </ResponsiveContainer>
+        <div className="shrink-0" style={{ width: 160, height: 160 }}>
+          <PieChart width={160} height={160}>
+            <Pie
+              data={CATEGORY_BREAKDOWN}
+              cx={80}
+              cy={80}
+              innerRadius={46}
+              outerRadius={70}
+              paddingAngle={3}
+              dataKey="value"
+              onMouseEnter={(_, index) => setActiveIndex(index)}
+              onMouseLeave={() => setActiveIndex(null)}
+              strokeWidth={0}
+            >
+              {CATEGORY_BREAKDOWN.map((entry, index) => (
+                <Cell
+                  key={entry.name}
+                  fill={entry.color}
+                  opacity={activeIndex === null || activeIndex === index ? 1 : 0.35}
+                  style={{ cursor: "pointer", transition: "opacity 0.2s" }}
+                />
+              ))}
+            </Pie>
+            <Tooltip content={<CustomTooltip />} />
+          </PieChart>
         </div>
 
         {/* Legend */}

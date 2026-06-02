@@ -149,17 +149,18 @@ export default function AlertsPage() {
         style={{ background: "#ffffff", borderColor: "var(--border)" }}
       >
         {TABS.map((t) => (
-          <motion.button
+          <button
             key={t.id}
+            type="button"
             onClick={() => setTab(t.id)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium"
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors active:scale-[0.97] ${
+              tab !== t.id ? "hover:bg-[var(--bg)]" : ""
+            }`}
             style={{
-              background: tab === t.id ? "var(--brand)" : "transparent",
+              background: tab === t.id ? "var(--brand)" : "#ffffff",
               color: tab === t.id ? "#fff" : "var(--text-secondary)",
               boxShadow: tab === t.id ? "0 2px 8px rgba(242,167,185,0.35)" : "none",
             }}
-            whileHover={tab !== t.id ? { background: "var(--bg)" } : {}}
-            whileTap={{ scale: 0.97 }}
           >
             {t.icon}
             {t.label}
@@ -173,7 +174,7 @@ export default function AlertsPage() {
                 {expiryAlerts.length}
               </span>
             )}
-          </motion.button>
+          </button>
         ))}
       </div>
 

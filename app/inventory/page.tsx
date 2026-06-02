@@ -161,7 +161,7 @@ export default function InventoryPage() {
               onClick={() => setTab(t.id)}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium"
               style={{
-                background: tab === t.id ? "var(--brand)" : "transparent",
+                background: tab === t.id ? "var(--brand)" : "#ffffff",
                 color: tab === t.id ? "#ffffff" : "var(--text-secondary)",
                 boxShadow: tab === t.id ? "0 2px 8px rgba(242,167,185,0.35)" : "none",
               }}

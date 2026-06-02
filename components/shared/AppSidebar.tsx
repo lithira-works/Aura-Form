@@ -21,51 +21,28 @@ const NAV_SECTIONS = [
   {
     label: "Workspace",
     items: [
-      {
-        href: "/pos",
-        label: "POS Terminal",
-        icon: Store,
-        description: "Sales & checkout",
-      },
-      {
-        href: "/analytics",
-        label: "Analytics",
-        icon: BarChart2,
-        description: "Revenue & insights",
-      },
+      { href: "/pos", label: "POS Terminal", icon: Store, description: "Sales & checkout" },
+      { href: "/analytics", label: "Analytics", icon: BarChart2, description: "Revenue & insights" },
     ],
   },
   {
     label: "Management",
     items: [
-      {
-        href: "/inventory",
-        label: "Inventory",
-        icon: Boxes,
-        description: "Products & suppliers",
-      },
-      {
-        href: "/customers",
-        label: "Customers",
-        icon: Users,
-        description: "CRM & loyalty tiers",
-      },
-      {
-        href: "/alerts",
-        label: "Alerts",
-        icon: BellRing,
-        description: "Stock & expiry alerts",
-        badge: 3,
-      },
+      { href: "/inventory", label: "Inventory", icon: Boxes, description: "Products & suppliers" },
+      { href: "/customers", label: "Customers", icon: Users, description: "CRM & loyalty tiers" },
+      { href: "/alerts", label: "Alerts", icon: BellRing, description: "Stock & expiry alerts", badge: 3 },
     ],
   },
 ];
 
-const EXPAND_W  = 256;
+const EXPAND_W = 256;
 const COLLAPSE_W = 68;
 
+const INACTIVE_BG = "#ffffff";
+const HOVER_BG = "#f7f7fa";
+
 export default function AppSidebar() {
-  const pathname  = usePathname();
+  const pathname = usePathname();
   const [open, setOpen] = useState(true);
 
   const isActive = (href: string) =>
@@ -77,7 +54,6 @@ export default function AppSidebar() {
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
       className="relative h-full shrink-0"
     >
-      {/* ─── Sidebar body ─────────────────────────────────────────── */}
       <div
         className="flex flex-col h-full border-r overflow-hidden"
         style={{
@@ -87,36 +63,32 @@ export default function AppSidebar() {
           boxShadow: "2px 0 20px rgba(0,0,0,0.05)",
         }}
       >
-        {/* ── Brand header ── */}
+        {/* Brand header */}
         <div
-          className="flex items-center h-16 border-b shrink-0 px-4"
-          style={{
-            borderColor: "var(--border)",
-            justifyContent: open ? "flex-start" : "center",
-            gap: open ? 12 : 0,
-          }}
+          className={`flex items-center h-16 border-b shrink-0 px-4 ${
+            open ? "justify-start" : "justify-center"
+          }`}
+          style={{ borderColor: "var(--border)" }}
         >
-          <motion.div
+          <div
             className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
             style={{
               background: "linear-gradient(135deg, #fde8ee 0%, #fce4ec 100%)",
               boxShadow: "0 2px 10px rgba(242,167,185,0.35)",
             }}
-            whileHover={{ scale: 1.08, rotate: 8 }}
-            transition={{ type: "spring", stiffness: 380, damping: 20 }}
           >
             <Sparkles size={17} style={{ color: "var(--brand-dark)" }} />
-          </motion.div>
+          </div>
 
           <AnimatePresence initial={false}>
             {open && (
               <motion.div
                 key="brand-text"
-                initial={{ opacity: 0, x: -10 }}
+                initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                className="min-w-0"
+                exit={{ opacity: 0, x: -8 }}
+                transition={{ duration: 0.18 }}
+                className="min-w-0 ml-3"
               >
                 <p className="font-bold text-[15px] leading-tight tracking-tight" style={{ color: "var(--text)" }}>
                   CosmoPOS
@@ -129,19 +101,18 @@ export default function AppSidebar() {
           </AnimatePresence>
         </div>
 
-        {/* ── Navigation ── */}
-        <nav className="flex-1 overflow-y-auto py-4 space-y-1" style={{ padding: "16px 10px" }}>
+        {/* Navigation */}
+        <nav className="flex-1 overflow-y-auto py-4 px-2.5 space-y-1">
           {NAV_SECTIONS.map((section, si) => (
             <div key={section.label} className={si > 0 ? "mt-4" : ""}>
-              {/* Section label */}
-              <AnimatePresence initial={false}>
+              <AnimatePresence initial={false} mode="wait">
                 {open ? (
                   <motion.p
                     key="label"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.18 }}
+                    transition={{ duration: 0.15 }}
                     className="text-[10px] font-bold uppercase tracking-[0.14em] px-3 mb-2"
                     style={{ color: "var(--text-muted)" }}
                   >
@@ -159,49 +130,43 @@ export default function AppSidebar() {
                 )}
               </AnimatePresence>
 
-              {/* Items */}
               <div className="flex flex-col gap-0.5">
                 {section.items.map(({ href, label, icon: Icon, badge, description }) => {
                   const active = isActive(href);
                   return (
                     <Link key={href} href={href} title={!open ? label : undefined}>
-                      <motion.div
-                        className="relative flex items-center rounded-xl cursor-pointer select-none"
-                        animate={{
-                          paddingLeft:  open ? 12 : 0,
-                          paddingRight: open ? 12 : 0,
-                          paddingTop:   10,
-                          paddingBottom: 10,
-                          gap: open ? 10 : 0,
-                          justifyContent: open ? "flex-start" : "center",
-                        }}
+                      <div
+                        className={`relative flex items-center rounded-xl cursor-pointer select-none transition-colors duration-200 py-2.5 ${
+                          open ? "px-3 justify-start" : "px-0 justify-center"
+                        }`}
                         style={{
-                          background: active ? "var(--brand-light)" : "transparent",
+                          background: active ? "var(--brand-light)" : INACTIVE_BG,
                           color: active ? "var(--brand-dark)" : "var(--text-secondary)",
                         }}
-                        whileHover={{
-                          background: active ? "var(--brand-light)" : "var(--bg)",
-                          color: active ? "var(--brand-dark)" : "var(--text)",
-                          transition: { duration: 0.1 },
+                        onMouseEnter={(e) => {
+                          if (!active) {
+                            e.currentTarget.style.background = HOVER_BG;
+                            e.currentTarget.style.color = "var(--text)";
+                          }
                         }}
-                        transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = active
+                            ? "var(--brand-light)"
+                            : INACTIVE_BG;
+                          e.currentTarget.style.color = active
+                            ? "var(--brand-dark)"
+                            : "var(--text-secondary)";
+                        }}
                       >
-                        {/* Active accent bar */}
                         {active && (
-                          <motion.div
-                            layoutId="nav-active-bar"
+                          <div
                             className="absolute left-0 top-2.5 bottom-2.5 w-[3px] rounded-r-full"
                             style={{ background: "var(--brand-dark)" }}
-                            transition={{ type: "spring", stiffness: 480, damping: 38 }}
                           />
                         )}
 
-                        {/* Icon */}
                         <div className="relative shrink-0">
-                          <Icon
-                            size={19}
-                            strokeWidth={active ? 2.3 : 1.9}
-                          />
+                          <Icon size={19} strokeWidth={active ? 2.3 : 1.9} />
                           {badge && !open && (
                             <span
                               className="absolute -top-1.5 -right-1.5 w-[15px] h-[15px] rounded-full text-[9px] flex items-center justify-center font-bold text-white"
@@ -212,7 +177,6 @@ export default function AppSidebar() {
                           )}
                         </div>
 
-                        {/* Label area */}
                         <AnimatePresence initial={false}>
                           {open && (
                             <motion.div
@@ -220,8 +184,8 @@ export default function AppSidebar() {
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
                               exit={{ opacity: 0 }}
-                              transition={{ duration: 0.18 }}
-                              className="flex-1 min-w-0 flex items-center justify-between"
+                              transition={{ duration: 0.15 }}
+                              className="flex-1 min-w-0 flex items-center justify-between ml-2.5"
                             >
                               <div className="min-w-0">
                                 <p className="text-[13px] font-semibold leading-tight truncate">
@@ -229,7 +193,9 @@ export default function AppSidebar() {
                                 </p>
                                 <p
                                   className="text-[11px] leading-none mt-0.5 truncate"
-                                  style={{ color: active ? "var(--brand-dark)" : "var(--text-muted)", opacity: 0.85 }}
+                                  style={{
+                                    color: active ? "var(--brand-dark)" : "var(--text-muted)",
+                                  }}
                                 >
                                   {description}
                                 </p>
@@ -245,7 +211,7 @@ export default function AppSidebar() {
                             </motion.div>
                           )}
                         </AnimatePresence>
-                      </motion.div>
+                      </div>
                     </Link>
                   );
                 })}
@@ -254,15 +220,15 @@ export default function AppSidebar() {
           ))}
         </nav>
 
-        {/* ── Cloud sync chip ── */}
+        {/* Sync status */}
         <AnimatePresence initial={false}>
           {open && (
             <motion.div
               key="sync"
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 8 }}
-              transition={{ duration: 0.2 }}
+              exit={{ opacity: 0, y: 6 }}
+              transition={{ duration: 0.18 }}
               className="px-4 pb-3"
             >
               <div
@@ -270,8 +236,14 @@ export default function AppSidebar() {
                 style={{ background: "#f0fdf4", border: "1px solid #bbf7d0" }}
               >
                 <span className="relative flex h-2 w-2 shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "#4ade80" }} />
-                  <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "#16a34a" }} />
+                  <span
+                    className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                    style={{ background: "#4ade80" }}
+                  />
+                  <span
+                    className="relative inline-flex rounded-full h-2 w-2"
+                    style={{ background: "#16a34a" }}
+                  />
                 </span>
                 <Wifi size={11} style={{ color: "#16a34a" }} />
                 <p className="text-[11px] font-semibold truncate" style={{ color: "#16a34a" }}>
@@ -282,24 +254,27 @@ export default function AppSidebar() {
           )}
         </AnimatePresence>
 
-        {/* ── Divider ── */}
         <div className="mx-3" style={{ height: "1px", background: "var(--border)" }} />
 
-        {/* ── User profile ── */}
+        {/* User profile */}
         <div className="p-2.5 pb-4">
-          <motion.div
-            className="flex items-center rounded-xl p-2 cursor-pointer"
-            animate={{
-              justifyContent: open ? "flex-start" : "center",
-              gap: open ? 10 : 0,
-            }}
-            transition={{ duration: 0.25 }}
+          <div
+            className={`flex items-center rounded-xl p-2 cursor-pointer transition-colors duration-200 ${
+              open ? "justify-start" : "justify-center"
+            }`}
             style={{ background: "var(--bg)" }}
-            whileHover={{ background: "var(--brand-light)", transition: { duration: 0.12 } }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "var(--brand-light)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "var(--bg)";
+            }}
           >
             <div
               className="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold text-white shrink-0"
-              style={{ background: "linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%)" }}
+              style={{
+                background: "linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%)",
+              }}
             >
               SL
             </div>
@@ -311,8 +286,8 @@ export default function AppSidebar() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.18 }}
-                  className="flex-1 min-w-0 flex items-center justify-between"
+                  transition={{ duration: 0.15 }}
+                  className="flex-1 min-w-0 flex items-center justify-between ml-2.5"
                 >
                   <div className="min-w-0">
                     <p className="text-xs font-bold truncate" style={{ color: "var(--text)" }}>
@@ -323,6 +298,7 @@ export default function AppSidebar() {
                     </p>
                   </div>
                   <button
+                    type="button"
                     className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-colors hover:bg-red-50"
                     style={{ color: "var(--text-muted)" }}
                     title="Sign out"
@@ -332,13 +308,14 @@ export default function AppSidebar() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* ─── Collapse toggle — outside overflow-hidden ──────────── */}
-      <motion.button
-        className="absolute top-[22px] right-[-14px] w-7 h-7 rounded-full border flex items-center justify-center z-30"
+      {/* Collapse toggle */}
+      <button
+        type="button"
+        className="absolute top-[22px] right-[-14px] w-7 h-7 rounded-full border flex items-center justify-center z-30 transition-all duration-200 hover:scale-110 active:scale-95"
         style={{
           background: "#ffffff",
           borderColor: "var(--border-strong)",
@@ -346,16 +323,10 @@ export default function AppSidebar() {
           color: "var(--text-secondary)",
         }}
         onClick={() => setOpen((v) => !v)}
-        whileHover={{
-          scale: 1.15,
-          boxShadow: "0 4px 14px rgba(242,167,185,0.5)",
-          color: "var(--brand-dark)",
-        }}
-        whileTap={{ scale: 0.88 }}
         title={open ? "Collapse sidebar" : "Expand sidebar"}
       >
         {open ? <ChevronsLeft size={13} /> : <ChevronsRight size={13} />}
-      </motion.button>
+      </button>
     </motion.div>
   );
 }
