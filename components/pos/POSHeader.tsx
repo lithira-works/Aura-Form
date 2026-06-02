@@ -8,7 +8,6 @@ import {
   Scan,
   Settings,
   ChevronDown,
-  Sparkles,
   Search,
   UserCircle,
 } from "lucide-react";
@@ -75,25 +74,6 @@ export default function POSHeader({
         boxShadow: "var(--shadow-sm)",
       }}
     >
-      {/* Brand */}
-      <div className="flex items-center gap-2 min-w-[180px]">
-        <motion.div
-          className="w-9 h-9 rounded-xl flex items-center justify-center"
-          style={{ background: "var(--brand-light)" }}
-          whileHover={{ scale: 1.05 }}
-        >
-          <Sparkles size={18} style={{ color: "var(--brand-dark)" }} />
-        </motion.div>
-        <div>
-          <p className="font-semibold text-sm leading-none" style={{ color: "var(--text)" }}>
-            CosmoPOS
-          </p>
-          <p className="text-xs leading-none mt-0.5" style={{ color: "var(--text-secondary)" }}>
-            Aura &amp; Form
-          </p>
-        </div>
-      </div>
-
       {/* Search */}
       <div className="flex-1 max-w-md">
         <div
@@ -203,7 +183,7 @@ export default function POSHeader({
         style={{ borderLeft: "1px solid var(--border)" }}
       >
         <div
-          className="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-semibold flex-shrink-0"
+          className="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-semibold shrink-0"
           style={{ background: "var(--brand)", color: "#fff" }}
         >
           {ACTIVE_CASHIER.avatar}

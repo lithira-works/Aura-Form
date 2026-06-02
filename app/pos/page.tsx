@@ -122,7 +122,7 @@ export default function POSPage() {
 
   return (
     <div
-      className="flex flex-col h-screen overflow-hidden"
+      className="flex flex-col h-full overflow-hidden"
       style={{ background: "var(--bg)" }}
     >
       {/* Top bar */}
